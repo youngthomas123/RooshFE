@@ -1,11 +1,11 @@
 import { Typography, Button, IconButton } from '@mui/material';
-import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import ButtonBase from '@mui/material/ButtonBase';
 import SendIcon from '@mui/icons-material/Send';
+import * as React from 'react';
 
 const Bookings = () => {
-    
+
     return (
         <>
             <Typography variant="h4" >
@@ -17,6 +17,7 @@ const Bookings = () => {
             </Button>
             
         </>
+        
         // ADD COMPONENTS HERE
 
     );
