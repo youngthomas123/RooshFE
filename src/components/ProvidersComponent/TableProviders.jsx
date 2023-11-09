@@ -76,7 +76,7 @@ const TableProviders = () => {
                         {providers
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => (
-                                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                     {columns.map((column) => (
                                         <TableCell key={column.id} align={column.align}>
                                             {column.id === 'status'

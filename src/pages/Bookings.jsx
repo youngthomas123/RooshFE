@@ -1,24 +1,42 @@
-import { Typography, Button, IconButton } from '@mui/material';
+import { Typography, Button, IconButton, Box, Stack } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ButtonBase from '@mui/material/ButtonBase';
 import SendIcon from '@mui/icons-material/Send';
 import * as React from 'react';
-import TableBookings from '../components/ProvidersComponent/TableBookings';
+import TableBookings from '../components/BookingComponent/TableBookings';
+
 const Bookings = () => {
 
     return (
-        <><>
-            <Typography variant="h4">
-                Bookings View
+        <>
+            <Box sx={{ width: '100%' }}>
+            <Typography variant="h5" gutterBottom sx={{ color: 'grey' }}>
+                Bookings
             </Typography>
 
-            <Button variant="contained" endIcon={<SendIcon />} sx={{ ml: 5 }}>
-                Send
-            </Button>
 
+
+            <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            spacing={2}
+            >
+                <Box>
+                    <Typography variant="h3" gutterBottom sx={{ fontWeight: 'bold' }}>
+                        Overview
+                    </Typography>
+                </Box>
+
+                <Button variant="contained" size='large' sx={{ textTransform: 'none', py: 1.3 }}>Add Bookings</Button>
+
+            </Stack>
+
+
+            <TableBookings />
+
+        </Box>
         </>
-            // ADD COMPONENTS HERE
-            <TableBookings /></>
     );
 }
 

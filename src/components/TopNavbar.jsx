@@ -19,6 +19,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listitems';
 import { Outlet } from 'react-router-dom';
+import { red } from '@mui/material/colors';
 
 // import Chart from './Chart';
 // import Deposits from './Deposits';
@@ -167,7 +168,7 @@ export default function Dashboard() {
         >
           <Toolbar />
           
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container disableGutters maxWidth='xl' sx={{ mt: 4, mb: 4,}}>
             <Outlet />
             <Copyright sx={{ pt: 4 }} />
           </Container>

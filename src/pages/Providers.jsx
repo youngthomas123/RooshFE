@@ -10,7 +10,9 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableProviders from '../components/ProvidersComponent/tableProviders';
-
+import ButtonAddProvider from '../components/ProvidersComponent/ButtonAddProviders';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import SaveIcon from '@mui/icons-material/Save';
 
 
 
@@ -40,7 +42,7 @@ const Providers = () => {
                     </Typography>
                 </Box>
 
-                <Button variant="contained" size='large' sx={{ textTransform: 'none', py: 1.3 }}>Add Providers</Button>
+                <ButtonAddProvider/>
 
             </Stack>
 

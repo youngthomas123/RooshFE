@@ -61,7 +61,8 @@ const TableBookings = () => {
           default:
             return 'primary';
         }
-      }
+    }
+
     return (
         <Paper sx={{ position:'center', width: '100%', overflow: 'auto' }}>
             <TableContainer sx={{ maxHeight: 540}}>
