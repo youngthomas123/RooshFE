@@ -9,7 +9,7 @@ const DetailGeneral = () => {
 
 
     return (
-        <Box sx={{mt: 2}}>
+        <Box>
             <Typography variant="h5" gutterBottom sx={{ color: 'grey' }}>General</Typography>
         </Box>
     );
