@@ -8,9 +8,7 @@ const ProvidersApi ={
     getAll: () =>  axios.get(`${BASE_URL}/providers`),
     addProvider: async (provider) =>  axios.post(`${BASE_URL}/providers`, provider),
 
-    // deleteGenre: (id) =>  axios.delete(`${BASE_URL}/genres/${id}`),
-    // saveGenre: async (genre) => axios.post(`${BASE_URL}/genres`, genre),
-    // editGenre: async (genre) => axios.put(`${BASE_URL}/genres/${genre.id}`, genre)
+
 }
 
 export default ProvidersApi
