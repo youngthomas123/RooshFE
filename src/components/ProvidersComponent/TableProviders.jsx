@@ -171,7 +171,7 @@ const TableProviders = () => {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
-
+                    
                     <ViewListIcon sx={{ color: isTable ? 'orange' : 'grey', fontSize: 45 }} onClick={handleTableIcon} />
                     <WindowIcon sx={{ color: isTable ? 'grey' : 'orange', fontSize: 37 }} onClick={handleCardIcon} />
                 </Stack>
