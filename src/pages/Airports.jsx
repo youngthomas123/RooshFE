@@ -3,6 +3,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import TableAirport from '../components/AirportComponent/TableAirport';
+import ButtonModalAdd from '../components/AirportComponent/ButtonModalAdd';
 
 const Airports = () => {
 
@@ -59,8 +60,8 @@ const Airports = () => {
                 />
 
                 {/*Add button*/ }
-                <Button variant="contained" size='large' sx={{ textTransform: 'none', py: 1.3 }}>Add Airport</Button>
-                
+                {/* <Button variant="contained" size='large' sx={{ textTransform: 'none', py: 1.3 }}>Add Airport</Button> */}
+                <ButtonModalAdd />
             </Stack>
 
             <TableAirport />

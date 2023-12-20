@@ -34,6 +34,7 @@ export default function App() {
               <Route exact path="business-info" element={<DetailBusiness />} />
               <Route exact path="bookings" element={<DetailBookings />} />
             </Route>
+            
 
           </Route>
 

@@ -70,13 +70,14 @@ const TableProviders = () => {
         ProvidersApi.getAll()
             .then(response => {
                 setProviders(response.data);
+                console.log(response.data);
             })
             .catch(err => console.error('Error fetching genres:', err));
     }
 
     const columns = [
         { id: 'name', label: 'Providers', minWidth: 170 },
-        { id: 'logo', label: 'Logo', minWidth: 100 },
+        { id: 'airport', label: 'Airport', minWidth: 100 },
         { id: 'status', label: 'Status', minWidth: 340 },
     ];
 

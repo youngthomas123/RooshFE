@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
@@ -8,22 +8,26 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
+import AirportsApi from '../../APIs/AirportsAPI';
 
 const columns = [
-    { id: 'airport', label: 'Airport', minWidth: 170 },
+    { id: 'city', label: 'Airport', minWidth: 170 },
     { id: 'country', label: 'Country', minWidth: 100 },
     { id: 'terminal', label: 'Terminal', minWidth: 340, align: 'right' },
 ];
 
 function createData(airport, country, terminal) {
-    return { airport, country, terminal};
+    return { airport, country, terminal };
 }
 
 const rows = [
     createData('Eindhoven', 'NL', 1),
-    createData('Berlin', 'DE',  3),
+    createData('Berlin', 'DE', 3),
     createData('Schipol', 'NL', 1,),
 ];
+
+
+
 
 const getStatusButton = (status, label) => (
     <Button variant="contained" sx={{ backgroundColor: status === 0 ? 'green' : 'red', mx: 1 }}>
@@ -32,6 +36,20 @@ const getStatusButton = (status, label) => (
 );
 
 const TableAirport = () => {
+    //showing all airports
+    const [airports, setAirports] = useState([]);
+    const getAllAirports = () => {
+        AirportsApi.getAll()
+            .then(response => {
+                setAirports(response.data);
+            })
+            .catch(err => console.error('Error fetching airports:', err));
+    }
+
+    useEffect(() => {
+        getAllAirports();
+    }, []);
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -63,7 +81,7 @@ const TableAirport = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows
+                        {airports
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => (
                                 <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
@@ -82,7 +100,7 @@ const TableAirport = () => {
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={rows.length}
+                count={airports.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
