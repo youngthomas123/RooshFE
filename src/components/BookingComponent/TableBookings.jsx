@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
@@ -11,10 +11,11 @@ import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import BookingCards from "./BookingCards";
-import { Grid } from "@mui/material";
+import { Grid, CircularProgress } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
+import BookingsApi from '../../APIs/BookingsApi';
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 
@@ -136,11 +137,60 @@ const rows = [
 ];
 
 const TableBookings = () => {
+  // const [page, setPage] = React.useState(0);
+  // const [rowsPerPage, setRowsPerPage] = React.useState(10);
+ 
+  // const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const [bookings, setBookings] = useState([]); 
   const [viewMode, setViewMode] = useState("list");
 
+  const fetchBookings = async () => {
+    try {
+      setIsLoading(true)
+      const response = await BookingsApi.getAllBookings(); 
+  
+      // const bookingsData = response.data.map(booking => createRows(
+      //   booking.referenceNumber,
+      //   booking.orderedAt,
+      //   booking.departure,
+      //   booking.fullName, 
+      //   booking.vendor,
+      //   booking.language,
+      //   booking.status,
+      //   booking.price,
+      //   <FileDownloadOutlinedIcon />
+      // ));
+        const bookingData = [...response.data]
+      setBookings(bookingData)
+    
+      // setBookings(...data.data.map(booking => createRows(
+      //   booking.reference,
+      //   booking.orderedAt,
+      //   booking.departure,
+      //   booking.fullName,
+      //   booking.vendor,
+      //   booking.language,
+      //   booking.status,
+      //   booking.price,
+      //   <FileDownloadOutlinedIcon />, rows
+        
+      // )));
+      
+      
+    } catch (err) {
+     console.log(err)
+    } finally{
+      setIsLoading(false)
+    }
+  };
+
+  useEffect(() => {
+    
+    fetchBookings();
+  }, []);
   const toggleViewMode = () => {
     setViewMode(viewMode === "list" ? "card" : "list"); 
   };
@@ -156,16 +206,24 @@ const TableBookings = () => {
 
   function getStatusColor(status) {
     switch (status) {
-      case "Cancelled":
+      case "CANCELLED":
         return "error";
-      case "Pending":
+      case "PENDING":
         return "warning";
-      case "Complete":
+      case "COMPLETED":
         return "success";
       default:
         return "primary";
     }
   }
+  if (isLoading) {
+    return (
+      <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
+        <CircularProgress />
+      </Grid>
+    );
+  }
+
   return (
     <Paper sx={{ position: "center", width: "100%", overflow: "auto" }}>
       <Grid
@@ -217,7 +275,7 @@ const TableBookings = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows
+                {bookings
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => (
                     <TableRow hover role="checkbox" tabIndex={-1} key={index}>
@@ -244,7 +302,7 @@ const TableBookings = () => {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={rows.length}
+            count={bookings.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -252,7 +310,7 @@ const TableBookings = () => {
           />
         </>
       ) : (
-        <BookingCards bookings={rows} columns={columns} />
+        <BookingCards bookings={bookings} columns={columns} />
       )}
     </Paper>
   );

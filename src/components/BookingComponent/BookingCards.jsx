@@ -13,9 +13,10 @@ import PendingIcon from "@mui/icons-material/PendingActions";
 import { red, yellow, green } from "@mui/material/colors";
 import { IconButton } from "@mui/material";
 
+
 const getStatusIcon = (status) => {
-  if (status === "Cancelled") return <CancelIcon />;
-  if (status === "Pending") return <PendingIcon />;
+  if (status === "CANCELLED") return <CancelIcon />;
+  if (status === "PENDING") return <PendingIcon />;
   return <CheckCircleIcon />;
 };
 const BookingCards = ({ bookings, columns }) => {
@@ -24,11 +25,11 @@ const BookingCards = ({ bookings, columns }) => {
 
   function getStatusColor(status) {
     switch (status) {
-      case 'Cancelled':
+      case 'CANCELLED':
         return theme.palette.error.main; 
-      case 'Pending':
+      case 'PENDING':
         return theme.palette.warning.main;
-      case 'Complete':
+      case 'COMPLETED':
         return theme.palette.success.main;
       default:
         return theme.palette.primary.main;
