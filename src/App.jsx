@@ -11,6 +11,8 @@ import ProviderDetails from './pages/ProviderDetails';
 import DetailGeneral from './components/ProvidersComponent/Details/DetailGeneral';
 import DetailBusiness from './components/ProvidersComponent/Details/DetailBusiness';
 import DetailBookings from './components/ProvidersComponent/Details/DetailBookings';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 
 
 
@@ -20,6 +22,7 @@ export default function App() {
 
     <BrowserRouter>
       <Routes>
+
         <Route path="/" element={<TopNavbar />}>
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
@@ -34,11 +37,12 @@ export default function App() {
               <Route exact path="business-info" element={<DetailBusiness />} />
               <Route exact path="bookings" element={<DetailBookings />} />
             </Route>
-            
-
           </Route>
-
         </Route>
+
+
+        <Route path="/SignIn" element={<SignIn />}/>
+        <Route path="/SignUp" element={<SignUp />}/>
       </Routes>
     </BrowserRouter>
   );
