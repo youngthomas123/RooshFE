@@ -51,13 +51,13 @@ const Airports = () => {
                 <TextField id="outlined-basic" label="Search" variant="outlined" />
 
                 {/*SortBY*/}
-                <Autocomplete
+                {/* <Autocomplete
                     disablePortal
                     id="combo-box-demo"
                     options={"Airport"}
                     sx={{ width: 300 }}
                     renderInput={(params) => <TextField {...params} label="Airport" />}
-                />
+                /> */}
 
                 {/*Add button*/ }
                 {/* <Button variant="contained" size='large' sx={{ textTransform: 'none', py: 1.3 }}>Add Airport</Button> */}

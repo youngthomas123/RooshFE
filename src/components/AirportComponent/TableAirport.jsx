@@ -9,6 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import AirportsApi from '../../APIs/AirportsAPI';
+import { ProvidersApifetch } from '../../APIs/ProvidersApi';
 
 const columns = [
     { id: 'city', label: 'Airport', minWidth: 170 },
@@ -35,20 +36,31 @@ const getStatusButton = (status, label) => (
     </Button>
 );
 
-const TableAirport = () => {
-    //showing all airports
+const TableAirport = () => 
+{
+    
     const [airports, setAirports] = useState([]);
-    const getAllAirports = () => {
-        AirportsApi.getAll()
-            .then(response => {
-                setAirports(response.data);
-            })
-            .catch(err => console.error('Error fetching airports:', err));
-    }
 
-    useEffect(() => {
-        getAllAirports();
-    }, []);
+
+
+    useEffect(()=>{
+        AirportsApi.getAllAirports()
+        .then((response)=>{
+            if(response.ok)
+            {
+                response.json()
+                .then((data)=>{
+                    console.log(data);
+                    setAirports(data)
+                })
+            }
+        })
+
+        
+
+       
+        
+    },[])
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -84,7 +96,7 @@ const TableAirport = () => {
                         {airports
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => (
-                                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                     {columns.map((column) => (
                                         <TableCell key={column.id} align={column.align}>
                                             {
@@ -108,6 +120,17 @@ const TableAirport = () => {
             />
         </Paper>
     );
-};
+
+
+
+
+    
+}
+    
+
+    
+
+   
+
 
 export default TableAirport;

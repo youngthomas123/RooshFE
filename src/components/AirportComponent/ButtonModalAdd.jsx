@@ -6,7 +6,9 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import ProvidersApi from '../../APIs/ProvidersApi';
 import AirportsApi from '../../APIs/AirportsAPI';
-const ButtonModalAdd = () => {
+import { ProvidersApifetch } from '../../APIs/ProvidersApi';
+const ButtonModalAdd = () => 
+{
     const style = {
         position: 'absolute',
         top: '50%',
@@ -37,50 +39,89 @@ const ButtonModalAdd = () => {
 
     const [nameinput, setNameinput] = useState('');
     const [countryinput, setCountryinput] = useState('');
-    const [codeinput, setCodeinput] = useState('');
+    const [terminalinput, setTerminalinput] = useState('');
     const [addedAirportId, setAddedAirportId] = useState('');
 
     const textFieldTitles = [
         { key: 'city', label: 'City', type: 'text', value: (e) => setNameinput(e.target.value) },
         { key: 'country', label: 'Country', type: 'text', value: (e) => setCountryinput(e.target.value) },
-        { key: 'terminal', label: 'Terminal', type: 'text', value: (e) => setCodeinput(e.target.value) },
+        { key: 'terminal', label: 'Terminal', type: 'text', value: (e) => setTerminalinput(e.target.value) },
     ];
 
     const handleAddAirport = async () => {
-        try {
-            const response = await AirportsApi.addAirports({
-                name: nameinput,
-                city: nameinput,
-                country: countryinput,
-                terminal: codeinput,
-                providerId: selectedProvider.id
-            });
-            setAddedAirportId(response.data);
-            console.log(response.data);
-        } catch (err) {
-            console.error('Error saving airport:', err);
+       
+        if(selectedProvider!=null)
+        {
+            console.log("name " +nameinput)
+            console.log("country "+ countryinput)
+            console.log("terminal "+ terminalinput)
+            console.log("AirportId "+ addedAirportId)
+
+            const airport = {
+                name: "placeholderName",
+                code : "palceHolderCode",
+                streetname : "placeHolderStreetName",
+                streetnumber: 0,
+                zipCode : "placeHolderZipCode",
+                city : nameinput,
+                country : countryinput,
+                longtitude : 0,
+                latitude : 0,
+                terminal : parseInt(terminalinput)
+            }
+
+
+
+
+
+            AirportsApi.AddAirport(selectedProvider.id, airport)
+            .then((response)=>{
+                if(response.ok)
+                {
+                    console.log("added airport with provider " + selectedProvider);
+                }
+                else
+                {
+                    console.log("failed to add airport with provider " +selectedProvider )
+                }
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+
         }
+        else
+        {
+            console.log("No provider selected");
+        }
+
         setOpen(false);
     };
+
+
     const [selectedProvider, setSelectedProvider] = useState(null);
     //getting all providers
     const [providers, setProviders] = useState([]);
-    const getAllProviders = () => {
-        ProvidersApi.getAll()
-            .then(response => {
-                setProviders(response.data);
-            })
-            .catch(err => console.error('Error fetching genres:', err));
-    }
+    
 
     useEffect(() => {
-        getAllProviders();
+        ProvidersApifetch.getAllProviders()
+        .then((response)=>{
+            if(response.ok)
+            {
+                response.json()
+                .then((data)=>{
+                    console.log(data);
+                    setProviders(data);
+                })
+            }
+        })
     }, []);
 
     const handleProviderChange = (event, newValue) => {
         setSelectedProvider(newValue);
         console.log(newValue);
-        console.log(selectedProvider.id);
+        
       };
     return (
         <>
@@ -96,16 +137,17 @@ const ButtonModalAdd = () => {
                         Add New Airports
                     </Typography>
                     <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-                        size="small"
-                        options={providers}
-                        getOptionLabel={(option) => option.name}
-                        sx={{ width: 285, height: 40, backgroundColor: 'white', ml: 3, mb: 2 }}
-                        renderInput={(params) => <TextField {...params} label="Providers" />}
-                        value={selectedProvider} // Controlled component to set the selected value
-                        onChange={handleProviderChange}
+                     disablePortal
+                     id="combo-box-demo"
+                     size="small"
+                     options={providers}
+                     getOptionLabel={(option) => option.name || 'Unknown Name'} // Use a fallback value
+                     sx={{ width: 285, height: 40, backgroundColor: 'white', ml: 3, mb: 2 }}
+                     renderInput={(params) => <TextField {...params} label="Providers" />}
+                    //  value={selectedProvider}
+                     onChange={handleProviderChange}
                     />
+
                     {textFieldTitles.map((title) => (
                         <Container key={title.key} sx={{ mb: 2 }}>
                             <TextField
