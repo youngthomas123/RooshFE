@@ -67,9 +67,35 @@ async function AddAirport(providerId, airport)
 
 }
 
+async function searchAirport(city, country)
+{
+  const url = `${BASE_URL}/airports/search?city=${city}&country=${country}`;
+  
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  try
+  {
+    const response = await fetch(url,{
+      method: 'GET',
+      headers,
+      
+    });
+    return response;
+  }
+  catch(error)
+  {
+    console.log("API error searchAirport(...)");
+    throw error;
+  }
+
+}
+
 const AirportApi = {
     getAllAirports,
     AddAirport,
+    searchAirport,
 }
 
 export default AirportApi;

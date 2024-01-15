@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import UserAPI from '../APIs/UserAPI';
+// import UserAPI from '../APIs/UserAPI';
 import { useNavigate } from "react-router-dom";
 
 
@@ -49,19 +49,19 @@ export default function SignUp() {
     };
 
     const handleSignUp = async (username, email, password, firstname, lastname) => {
-        try {
-            const response = await UserAPI.signup({
-                username: username,
-                email: email,
-                password: password,
-                firstname: firstname,
-                lastname: lastname
-            });
-            console.log('sign up success');
-            navigate("/signin");
-        } catch (error) {
-            console.error('Error signing up:', error);
-        }
+        // try {
+        //     const response = await UserAPI.signup({
+        //         username: username,
+        //         email: email,
+        //         password: password,
+        //         firstname: firstname,
+        //         lastname: lastname
+        //     });
+        //     console.log('sign up success');
+        //     navigate("/signin");
+        // } catch (error) {
+        //     console.error('Error signing up:', error);
+        // }
 
     };
 
