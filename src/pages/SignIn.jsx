@@ -48,25 +48,25 @@ export default function SignIn() {
       handleSignIn(data.get('email'), data.get('password'));
     };
 
-  // const handleSignIn = async(email, password) => {
-  //   try {
-  //     const response = await UserAPI.signin({
-  //       email : email, 
-  //       password : password
-  //     });
-  //     Cookies.set('user_token', response.data.accessToken, {expires: 7, secure: true});
-  //     const decoded = JWTdecode(response.data.accessToken);
-  //     if (decoded.roles.includes("ADMIN")) {
-  //       navigate("/movies");
-  //     }else{
-  //       navigate("/MBMovies");
-  //     }
+  const handleSignIn = async(email, password) => {
+    // try {
+    //   const response = await UserAPI.signin({
+    //     email : email, 
+    //     password : password
+    //   });
+    //   Cookies.set('user_token', response.data.accessToken, {expires: 7, secure: true});
+    //   const decoded = JWTdecode(response.data.accessToken);
+    //   if (decoded.roles.includes("ADMIN")) {
+    //     navigate("/movies");
+    //   }else{
+    //     navigate("/MBMovies");
+    //   }
       
 
-  //   } catch (error) {
-  //     console.log('error signing in', error);
-  //   }
-  // };
+    // } catch (error) {
+    //   console.log('error signing in', error);
+    // }
+  };
 
 
   return (

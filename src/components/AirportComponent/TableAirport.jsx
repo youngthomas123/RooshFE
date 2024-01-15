@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import AirportsApi from '../../APIs/AirportsAPI';
 import { ProvidersApifetch } from '../../APIs/ProvidersApi';
+import AirportApi from '../../APIs/AirportsAPI';
 
 const columns = [
     { id: 'city', label: 'Airport', minWidth: 170 },
@@ -36,7 +37,7 @@ const getStatusButton = (status, label) => (
     </Button>
 );
 
-const TableAirport = () => 
+const TableAirport = ({searchAirport}) => 
 {
     
     const [airports, setAirports] = useState([]);
@@ -56,11 +57,22 @@ const TableAirport = () =>
             }
         })
 
-        
-
-       
-        
     },[])
+
+    useEffect(()=>{
+        console.log(searchAirport);
+        AirportApi.searchAirport(searchAirport.city, searchAirport.country)
+        .then((response)=>{
+            if(response.ok)
+            {
+                response.json()
+                .then((data)=>{
+                    console.log("filtered data "+ data)
+                    setAirports(data)
+                })
+            }
+        })
+    },[searchAirport.country])
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);

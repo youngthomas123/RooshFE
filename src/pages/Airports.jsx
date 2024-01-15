@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography, TextField, Autocomplete} from '@mui/material';
+import { Box, Button, Stack, Typography, TextField, Autocomplete } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,10 @@ import ButtonModalAdd from '../components/AirportComponent/ButtonModalAdd';
 const Airports = () => {
 
     const [iconFlipped, setIconFlipped] = useState(false);
+    const [searchAirport, setSearchAirport] = useState({
+        city: "",
+        country: ""
+    });
 
     const handleFilters = () => {
         setIconFlipped(!iconFlipped);
@@ -20,10 +24,10 @@ const Airports = () => {
             </Typography>
 
             <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="flex-start"
-            spacing={2}
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+                spacing={2}
             >
                 <Box>
                     <Typography variant="h3" gutterBottom sx={{ fontWeight: 'bold' }}>
@@ -31,7 +35,7 @@ const Airports = () => {
                     </Typography>
                 </Box>
 
-                {/*Filter Bar*/ }
+                {/*Filter Bar*/}
                 <Button
                     variant="outlined"
                     startIcon={<FilterListIcon style={{ color: 'orange', transform: iconFlipped ? 'rotate(180deg)' : 'none' }} />}
@@ -47,8 +51,13 @@ const Airports = () => {
                     FILTERS
                 </Button>
 
-                {/*Search bar*/ }
-                <TextField id="outlined-basic" label="Search" variant="outlined" />
+                {/*Search bar*/}
+                <TextField
+                    id="outlined-basic"
+                    label="Search"
+                    variant="outlined"
+                    onChange={(event) => setSearchAirport({ ...searchAirport, country: event.target.value, city: "" })}
+                />
 
                 {/*SortBY*/}
                 {/* <Autocomplete
@@ -59,12 +68,12 @@ const Airports = () => {
                     renderInput={(params) => <TextField {...params} label="Airport" />}
                 /> */}
 
-                {/*Add button*/ }
+                {/*Add button*/}
                 {/* <Button variant="contained" size='large' sx={{ textTransform: 'none', py: 1.3 }}>Add Airport</Button> */}
                 <ButtonModalAdd />
             </Stack>
 
-            <TableAirport />
+            <TableAirport searchAirport={searchAirport} />
         </div>
     );
 }

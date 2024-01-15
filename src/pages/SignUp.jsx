@@ -48,20 +48,20 @@ export default function SignUp() {
         handleSignUp(data.get('username'), data.get('email'), data.get('password'), data.get('firstName'), data.get('lastName'));
     };
 
-    // const handleSignUp = async (username, email, password, firstname, lastname) => {
-    //     try {
-    //         const response = await UserAPI.signup({
-    //             username: username,
-    //             email: email,
-    //             password: password,
-    //             firstname: firstname,
-    //             lastname: lastname
-    //         });
-    //         console.log('sign up success');
-    //         navigate("/signin");
-    //     } catch (error) {
-    //         console.error('Error signing up:', error);
-    //     }
+    const handleSignUp = async (username, email, password, firstname, lastname) => {
+        // try {
+        //     const response = await UserAPI.signup({
+        //         username: username,
+        //         email: email,
+        //         password: password,
+        //         firstname: firstname,
+        //         lastname: lastname
+        //     });
+        //     console.log('sign up success');
+        //     navigate("/signin");
+        // } catch (error) {
+        //     console.error('Error signing up:', error);
+        // }
 
     // };
 
