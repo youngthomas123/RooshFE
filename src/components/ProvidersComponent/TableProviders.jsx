@@ -19,9 +19,11 @@ import WindowIcon from '@mui/icons-material/Window';
 import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 import HailIcon from '@mui/icons-material/Hail';
 import PhotoSizeSelectActualOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActualOutlined';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const TableProviders = () => {
+    const navigate = useNavigate();
 
     const StyledInputBase = styled(InputBase)(({ theme }) => ({
         color: 'inherit',
@@ -77,7 +79,7 @@ const TableProviders = () => {
 
     const columns = [
         { id: 'name', label: 'Providers', minWidth: 170 },
-        { id: 'airport', label: 'Airport', minWidth: 100 },
+        // { id: 'airport', label: 'Airport', minWidth: 100 },
         { id: 'status', label: 'Status', minWidth: 340 },
     ];
 
@@ -125,8 +127,14 @@ const TableProviders = () => {
     };
 
     //table onclick
-    const handleTableClick = () => {
+    const handleTableClick = (row) => {
+        console.log('row content', row);
         console.log('table clicked');
+        const rowString = JSON.stringify(row);
+    Cookies.set('provider', rowString);
+        console.log('cookies', Cookies.get('provider'));
+        // <Navigate to={`/providers/details/${encodeURIComponent(JSON.stringify(row))}`} />
+        navigate(`/providers/details/${encodeURIComponent(JSON.stringify(row))}`);  
     }
 
     useEffect(() => {
@@ -205,9 +213,10 @@ const TableProviders = () => {
                                             role="checkbox"
                                             tabIndex={-1}
                                             key={row.id}
-                                            component={Link}
+                                            // component={Link}
                                             // to={`/provider-details/${row.id}`}
-                                            to={`/providers/details/${encodeURIComponent(JSON.stringify(row))}`}
+                                            onClick={() => handleTableClick(row)}
+                                            // to={`/providers/details/${encodeURIComponent(JSON.stringify(row))}`}
                                         >
                                             {columns.map((column) => (
                                                 <TableCell key={column.id} align={column.align}>

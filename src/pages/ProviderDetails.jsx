@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useParams, useNavigate } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, Box, Stack, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PhotoSizeSelectActualOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActualOutlined';
+import Cookies from 'js-cookie';
 
 const ProviderDetails = () => {
     const { rowData } = useParams();

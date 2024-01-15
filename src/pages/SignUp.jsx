@@ -63,7 +63,7 @@ export default function SignUp() {
         //     console.error('Error signing up:', error);
         // }
 
-    };
+    // };
 
     return (
         <ThemeProvider theme={defaultTheme}>
