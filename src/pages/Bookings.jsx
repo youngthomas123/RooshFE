@@ -4,6 +4,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import SendIcon from '@mui/icons-material/Send';
 import * as React from 'react';
 import TableBookings from '../components/BookingComponent/TableBookings';
+import { useState } from "react";
 
 const Bookings = () => {
 
@@ -27,8 +28,6 @@ const Bookings = () => {
                         Overview
                     </Typography>
                 </Box>
-
-                <Button variant="contained" size='large' sx={{ textTransform: 'none', py: 1.3 }}>Add Bookings</Button>
 
             </Stack>
 
