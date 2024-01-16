@@ -187,7 +187,7 @@ const TableBookings = () => {
   }, []);
   useEffect(() => {
     try {
-       BookingsApi.searchBookings(searchedTerm)
+       BookingsApi.searchBookings(searchedTerm, '')
        .then((response)=>{
         setBookings(response.data)
        

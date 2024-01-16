@@ -6,7 +6,7 @@ const BookingsApi ={
 
    
     getAllBookings: () =>  axios.get(`${BASE_URL}`),
-    searchBookings: (referenceNumber) => axios.get(`${BASE_URL}/search`, { params: { referenceNumber } })
+    searchBookings: (referenceNumber, vendor ) => axios.get(`${BASE_URL}/search`, { params: { referenceNumber, vendor } })
 
 }
 
