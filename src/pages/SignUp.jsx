@@ -165,4 +165,5 @@ export default function SignUp()
             </Container>
         </ThemeProvider>
     );
+    }
 }

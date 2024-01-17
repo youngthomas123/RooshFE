@@ -12,7 +12,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import PendingIcon from "@mui/icons-material/PendingActions";
 import { red, yellow, green } from "@mui/material/colors";
 import { IconButton } from "@mui/material";
-
+import DownloadPDFButton from "./DownloadPdfButton";
 
 const getStatusIcon = (status) => {
   if (status === "CANCELLED") return <CancelIcon />;
@@ -22,7 +22,21 @@ const getStatusIcon = (status) => {
 const BookingCards = ({ bookings, columns }) => {
 
   const theme = useTheme();
-
+  const personalDetails = {
+    name: "Jan Jansen",
+    email: "jan.jansen@example.com",
+    phone: "+31 612 345 678"
+  };
+  
+  const vehicleDetails = {
+    licensePlate: "XX-123-Y"
+  };
+  
+  const bookingDetails = {
+    startDate: "15-01-2024",
+    endDate: "22-01-2024",
+    travelers: 2
+  };
   function getStatusColor(status) {
     switch (status) {
       case 'CANCELLED':
@@ -53,41 +67,50 @@ const BookingCards = ({ bookings, columns }) => {
 
   return (
     <Grid container spacing={2}>
-    {bookings.map((booking, index) => (
-      <Grid item xs={12} sm={6} md={4} key={index}>
-        <Card sx={{ borderRadius: 2, boxShadow: 3, margin: 1 }}>
-          <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: getStatusColor(booking.status) }}>
-                {getStatusIcon(booking.status)}
-              </Avatar>
-            }
-            title={booking.reference}
-            titleTypographyProps={{ variant:"h6", component:"div", fontWeight: 'bold' }}
-            subheader={booking.vendor}
-            subheaderTypographyProps={{ color: 'text.secondary',fontWeight: 'bold', variant:"h6", component:"div"}}
-            action={
-              <IconButton
-                sx={{
-                  color: theme.palette.getContrastText(getStatusColor(booking.status))
-                }}
-
-              >
-                <FileDownloadOutlinedIcon />
-              </IconButton>
-            }
-            sx={{
-              backgroundColor: getStatusColor(booking.status),
-              color: theme.palette.getContrastText(getStatusColor(booking.status)),
-            }}
-          />
-          <CardContent>
-            {renderCardContent(booking)}
-          </CardContent>
-        </Card>
-      </Grid>
-    ))}
-  </Grid>
+      {bookings.map((booking, index) => (
+        <Grid item xs={12} sm={6} md={4} key={index}>
+          <Card sx={{ borderRadius: 2, boxShadow: 3, margin: 1 }}>
+            <CardHeader
+              avatar={
+                <Avatar sx={{ bgcolor: getStatusColor(booking.status) }}>
+                  {getStatusIcon(booking.status)}
+                </Avatar>
+              }
+              title={booking.reference}
+              titleTypographyProps={{ variant:"h6", component:"div", fontWeight: 'bold' }}
+              subheader={booking.vendor}
+              subheaderTypographyProps={{ color: 'text.secondary',fontWeight: 'bold', variant:"h6", component:"div"}}
+  
+              action={
+                <IconButton
+                  sx={{
+                    color: theme.palette.getContrastText(
+                      getStatusColor(booking.status)
+                    ),
+                  }}
+                >
+                  <DownloadPDFButton
+                    btnColor={getStatusColor(booking.status)}
+                    personalDetails={personalDetails}
+                    vehicleDetails={vehicleDetails}
+                    bookingDetails={bookingDetails}
+                  >
+                    <FileDownloadOutlinedIcon />
+                  </DownloadPDFButton>
+                </IconButton>
+              }
+              sx={{
+                backgroundColor: getStatusColor(booking.status),
+                color: theme.palette.getContrastText(
+                  getStatusColor(booking.status)
+                ),
+              }}
+            />
+            <CardContent>{renderCardContent(booking)}</CardContent>
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
   );
 };
 

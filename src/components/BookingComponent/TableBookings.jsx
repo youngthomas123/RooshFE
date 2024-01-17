@@ -18,10 +18,14 @@ import { IconButton } from "@mui/material";
 import BookingsApi from '../../APIs/BookingsApi';
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
-
-
+import SearchIcon from '@mui/icons-material/Search';
+import InputBase from '@mui/material/InputBase';
+import { styled } from '@mui/material/styles';
+import DownloadPDFButton from "./DownloadPdfButton";
+import { useTheme } from "@mui/material";
+import TextField from "@mui/material/TextField";
 const columns = [
-  { id: "reference", label: "Reference", minWidth: 120 },
+  { id: "referenceNumber", label: "Reference Number", minWidth: 150 },
   { id: "orderedAt", label: "Ordered At", minWidth: 150 },
   { id: "departure", label: "Departure", minWidth: 150 },
   { id: "fullName", label: "Full Name", minWidth: 120 },
@@ -32,109 +36,109 @@ const columns = [
   { id: "voucher", label: "Voucher", minWidth: 120 },
 ];
 
-function createRows(
-  reference,
-  orderedAt,
-  departure,
-  fullName,
-  vendor,
-  language,
-  status,
-  price,
-  voucher
-) {
-  return {
-    reference,
-    orderedAt,
-    departure,
-    fullName,
-    vendor,
-    language,
-    status,
-    price,
-    voucher,
-  };
-}
+// function createRows(
+//   referenceNumber,
+//   orderedAt,
+//   departure,
+//   fullName,
+//   vendor,
+//   language,
+//   status,
+//   price,
+//   voucher
+// ) {
+//   return {
+//     referenceNumber,
+//     orderedAt,
+//     departure,
+//     fullName,
+//     vendor,
+//     language,
+//     status,
+//     price,
+//     voucher,
+//   };
+// }
 
-const rows = [
-  createRows(
-    "12312",
-    "2023-11-06 15:25",
-    "2023-11-08 15:25",
-    "Someone",
-    "Roosh",
-    "English",
-    "Complete",
-    65.34,
-    <FileDownloadOutlinedIcon />
-  ),
-  createRows(
-    "12312",
-    "2023-11-06 15:25",
-    "2023-11-08 15:25",
-    "Someone",
-    "Roosh",
-    "English",
-    "Cancelled",
-    65.34,
-    <FileDownloadOutlinedIcon />
-  ),
-  createRows(
-    "12312",
-    "2023-11-06 15:25",
-    "2023-11-08 15:25",
-    "Someone",
-    "Roosh",
-    "English",
-    "Complete",
-    65.34,
-    <FileDownloadOutlinedIcon />
-  ),
-  createRows(
-    "12312",
-    "2023-11-06 15:25",
-    "2023-11-08 15:25",
-    "Someone",
-    "Roosh",
-    "English",
-    "Pending",
-    65.34,
-    <FileDownloadOutlinedIcon />
-  ),
-  createRows(
-    "12312",
-    "2023-11-06 15:25",
-    "2023-11-08 15:25",
-    "Someone",
-    "Roosh",
-    "English",
-    "Pending",
-    65.34,
-    <FileDownloadOutlinedIcon />
-  ),
-  createRows(
-    "12312",
-    "2023-11-06 15:25",
-    "2023-11-08 15:25",
-    "Someone",
-    "Roosh",
-    "English",
-    "Complete",
-    65.34,
-    <FileDownloadOutlinedIcon />
-  ),
-  createRows(
-    "12312",
-    "2023-11-06 15:25",
-    "2023-11-08 15:25",
-    "Someone",
-    "Roosh",
-    "English",
-    "Cancelled",
-    65.34,
-    <FileDownloadOutlinedIcon />
-  ),
-];
+// const rows = [
+//   createRows(
+//     "12312",
+//     "2023-11-06 15:25",
+//     "2023-11-08 15:25",
+//     "Someone",
+//     "Roosh",
+//     "English",
+//     "Complete",
+//     65.34,
+//     <FileDownloadOutlinedIcon />
+//   ),
+//   createRows(
+//     "12312",
+//     "2023-11-06 15:25",
+//     "2023-11-08 15:25",
+//     "Someone",
+//     "Roosh",
+//     "English",
+//     "Cancelled",
+//     65.34,
+//     <FileDownloadOutlinedIcon />
+//   ),
+//   createRows(
+//     "12312",
+//     "2023-11-06 15:25",
+//     "2023-11-08 15:25",
+//     "Someone",
+//     "Roosh",
+//     "English",
+//     "Complete",
+//     65.34,
+//     <FileDownloadOutlinedIcon />
+//   ),
+//   createRows(
+//     "12312",
+//     "2023-11-06 15:25",
+//     "2023-11-08 15:25",
+//     "Someone",
+//     "Roosh",
+//     "English",
+//     "Pending",
+//     65.34,
+//     <FileDownloadOutlinedIcon />
+//   ),
+//   createRows(
+//     "12312",
+//     "2023-11-06 15:25",
+//     "2023-11-08 15:25",
+//     "Someone",
+//     "Roosh",
+//     "English",
+//     "Pending",
+//     65.34,
+//     <FileDownloadOutlinedIcon />
+//   ),
+//   createRows(
+//     "12312",
+//     "2023-11-06 15:25",
+//     "2023-11-08 15:25",
+//     "Someone",
+//     "Roosh",
+//     "English",
+//     "Complete",
+//     65.34,
+//     <FileDownloadOutlinedIcon />
+//   ),
+//   createRows(
+//     "12312",
+//     "2023-11-06 15:25",
+//     "2023-11-08 15:25",
+//     "Someone",
+//     "Roosh",
+//     "English",
+//     "Cancelled",
+//     65.34,
+//     <FileDownloadOutlinedIcon />
+//   ),
+// ];
 
 const TableBookings = () => {
   // const [page, setPage] = React.useState(0);
@@ -146,54 +150,53 @@ const TableBookings = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [bookings, setBookings] = useState([]); 
   const [viewMode, setViewMode] = useState("list");
+  const[searchedTerm, setSearchTerm] = useState('');
 
-  const fetchBookings = async () => {
+  const theme = useTheme();
+  const personalDetails = {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    phone: "+31 123 456 789"
+  };
+  
+  const vehicleDetails = {
+    licensePlate: "NL-123-N"
+  };
+  
+  const bookingDetails = {
+    startDate: "15-01-2024",
+    endDate: "22-01-2024",
+    travelers: 2
+  };
+  const fetchBookings = async  () => {
     try {
       setIsLoading(true)
-      const response = await BookingsApi.getAllBookings(); 
-  
-      // const bookingsData = response.data.map(booking => createRows(
-      //   booking.referenceNumber,
-      //   booking.orderedAt,
-      //   booking.departure,
-      //   booking.fullName, 
-      //   booking.vendor,
-      //   booking.language,
-      //   booking.status,
-      //   booking.price,
-      //   <FileDownloadOutlinedIcon />
-      // ));
-        const bookingData = [...response.data]
-      setBookings(bookingData)
-    
-      // setBookings(...data.data.map(booking => createRows(
-      //   booking.reference,
-      //   booking.orderedAt,
-      //   booking.departure,
-      //   booking.fullName,
-      //   booking.vendor,
-      //   booking.language,
-      //   booking.status,
-      //   booking.price,
-      //   <FileDownloadOutlinedIcon />, rows
-        
-      // )));
-      
+      const response =  await BookingsApi.getAllBookings(); 
+      setBookings(response.data)
       
     } catch (err) {
      console.log(err)
     } finally{
       setIsLoading(false)
+      console.log(bookings)
     }
   };
 
   useEffect(() => {
-    
     fetchBookings();
   }, []);
-  const toggleViewMode = () => {
-    setViewMode(viewMode === "list" ? "card" : "list"); 
-  };
+  useEffect(() => {
+    try {
+       BookingsApi.searchBookings(searchedTerm, '')
+       .then((response)=>{
+        setBookings(response.data)
+       
+       })
+    } catch (error) {
+        console.error('Error during search:', error);
+        // Handle error state appropriately
+    }
+  },[searchedTerm])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -216,6 +219,8 @@ const TableBookings = () => {
         return "primary";
     }
   }
+
+
   if (isLoading) {
     return (
       <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
@@ -224,6 +229,20 @@ const TableBookings = () => {
     );
   }
 
+const  search = async (event) => {
+  
+  event.preventDefault();
+  try {
+      const response = await BookingsApi.searchBookings(searchedTerm);
+      setBookings(response.data);
+      console.log(bookings)
+      console.log(response.data);
+  } catch (error) {
+      console.error('Error during search:', error);
+      // Handle error state appropriately
+  }
+  setSearchTerm('');
+};
   return (
     <Paper sx={{ position: "center", width: "100%", overflow: "auto" }}>
       <Grid
@@ -232,7 +251,35 @@ const TableBookings = () => {
         alignItems="center"
         sx={{ padding: 2 }}
       >
-
+            {/* <form>
+            <TextField
+            id="search-bar"
+            className="text"
+            value={searchedTerm}
+            onInput={(e) => {
+            setSearchTerm(e.target.value);
+            }}
+              label="Search..."
+              variant="outlined"
+              placeholder="Search..."
+              size="small"
+            />
+        <IconButton onClick={search} aria-label="search">
+    <SearchIcon style={{ fill: "orange" }} />
+        </IconButton>
+</form>; */}
+          <TextField
+            id="search-bar"
+            className="text"
+            value={searchedTerm}
+            onChange={(e) => {
+            setSearchTerm(e.target.value);
+            }}
+              label="Search..."
+              variant="outlined"
+              placeholder="Search..."
+              size="small"
+            />
         <Grid item>
           <Tooltip title="List View">
             <IconButton
@@ -288,9 +335,24 @@ const TableBookings = () => {
                               style={{ width: "140px", height: "40px" }}
                             />
                           ) : column.id === "voucher" ? (
-                            row[column.id]
+                            <IconButton sx={{ backgroundColor: '#ed6c02' ,  borderRadius: '50%', 
+                            width: 48, 
+                            height: 48, 
+                           
+                          }}
+                          >
+                            <DownloadPDFButton 
+                              // color={getStatusColor(row.status)}
+                              personalDetails={personalDetails}
+                              vehicleDetails={vehicleDetails}
+                              bookingDetails={bookingDetails}
+                            >
+                              <FileDownloadOutlinedIcon sx={{ color: '#ed6c02'}}/>
+                            </DownloadPDFButton>
+                          </IconButton>
                           ) : (
                             row[column.id]
+                            
                           )}
                         </TableCell>
                       ))}
