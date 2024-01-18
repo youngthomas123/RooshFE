@@ -31,9 +31,10 @@ function Copyright(props) {
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
-const defaultTheme = createTheme();
+ const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function SignUp() 
+{
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -63,7 +64,7 @@ export default function SignUp() {
         //     console.error('Error signing up:', error);
         // }
 
-    // };
+    };
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -164,4 +165,4 @@ export default function SignUp() {
             </Container>
         </ThemeProvider>
     );
-}}
+}
